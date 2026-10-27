@@ -69,7 +69,8 @@ https://github.com/HaydenSmith1121/agent-workspace-protocol
 
 - `<工作区绝对路径>`：需要获得 `AGENTS.md`、适配器和 `MEMORY/` 的项目；
 - 运行环境：Codex、Claude Code，或自定义 skill 根目录（`--runtime`、`--skill-root`）；
-- 适配器：`--agents codex,claude,cursor,gemini,copilot` 或 `--agents all`；
+- 适配器：`--agents codex,claude,cursor,gemini,copilot,dsh,qoder,trae,workbuddy`
+  或 `--agents all`；
 - 模板语言：`--language en` 或 `--language zh-CN`；
 - 工作区已有文件：无需额外参数，已有的 `AGENTS.md`、`README.md` 保持原样，只补齐
   缺失文件。只有明确要替换它们时才加 `--force --backup`。
@@ -137,7 +138,7 @@ cd agent-workspace-protocol
 --runtime codex|claude    选择已知 skill 根目录
 --skill-root PATH         指定 skill 根目录
 --workspace PATH          要初始化的工作区（必填）
---agents LIST             codex,claude,cursor,gemini,copilot,all
+--agents LIST             codex,claude,cursor,gemini,copilot,dsh,qoder,trae,workbuddy,all
 --language en|zh-CN       选择英文或简体中文模板
 --dry-run                 只打印计划，不写文件
 --force                   覆盖工作区已有文件
@@ -168,10 +169,13 @@ cd agent-workspace-protocol
 workspace/
   AGENTS.md
   CLAUDE.md
+  CODEBUDDY.md
   GEMINI.md
   README.md
   .cursor/rules/000-agent-workspace.mdc
   .github/copilot-instructions.md
+  .qoder/rules/000-agent-workspace.md
+  .trae/rules/000-agent-workspace.md
   MEMORY/
     01-rules/
     02-structure/
@@ -234,9 +238,14 @@ workspace/
 | Cursor | `.cursor/rules/000-agent-workspace.mdc` | `cursor` |
 | Gemini CLI | `GEMINI.md` | `gemini` |
 | GitHub Copilot | `.github/copilot-instructions.md` | `copilot` |
+| DeepSeek Harness（`dsh`） | `AGENTS.md`（与 `codex` 共用） | `dsh` |
+| Qoder | `.qoder/rules/000-agent-workspace.md` | `qoder` |
+| Trae | `.trae/rules/000-agent-workspace.md` | `trae` |
+| WorkBuddy | `CODEBUDDY.md` | `workbuddy` |
 
 所有适配器都只是指针，不能复制规则正本。`CLAUDE.md` 只是 Claude Code 适配器，
-不是跨智能体规则，也不是全局 skill。
+不是跨智能体规则，也不是全局 skill。发现方式和入口重叠的说明见
+[适配矩阵](docs/zh-CN/adapter-matrix.md)。
 
 ## 安全
 

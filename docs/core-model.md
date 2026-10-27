@@ -90,7 +90,12 @@ Different tools discover different files:
 - Claude Code uses `CLAUDE.md`;
 - Gemini CLI uses `GEMINI.md`;
 - Cursor uses `.cursor/rules/`;
-- GitHub Copilot uses `.github/copilot-instructions.md`.
+- GitHub Copilot uses `.github/copilot-instructions.md`;
+- DeepSeek Harness reads `AGENTS.md` and `CLAUDE.md`, plus the user-global
+  `~/.dsh/AGENTS.md`;
+- Qoder uses `.qoder/rules/` and also reads `AGENTS.md`;
+- Trae uses `.trae/rules/` and can import `AGENTS.md` and `CLAUDE.md`;
+- WorkBuddy loads `CODEBUDDY.md` and `AGENTS.md`.
 
 If each adapter contains a different full copy of the rules, every tool
 eventually follows a different version. The adapter should therefore contain

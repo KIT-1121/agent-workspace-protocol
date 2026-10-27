@@ -15,8 +15,8 @@ it to the existing repository instead of replacing established, sensible rules.
 
 Before writing:
 
-1. Read the nearest `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, Cursor rules, and
-   Copilot instructions that exist.
+1. Read the nearest `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `CODEBUDDY.md`,
+   Cursor rules, Qoder rules, Trae rules, and Copilot instructions that exist.
 2. Check for an existing canonical protocol such as
    `MEMORY/01-rules/workspace-protocol.md`.
 3. Inspect the top-level directories and repository status.

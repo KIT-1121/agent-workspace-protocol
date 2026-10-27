@@ -77,7 +77,12 @@ AI 工作区不只是一个文件夹树，而是一个上下文系统。
 - Claude Code 使用 `CLAUDE.md`；
 - Gemini CLI 使用 `GEMINI.md`；
 - Cursor 使用 `.cursor/rules/`；
-- GitHub Copilot 使用 `.github/copilot-instructions.md`。
+- GitHub Copilot 使用 `.github/copilot-instructions.md`；
+- DeepSeek Harness 读取 `AGENTS.md`、`CLAUDE.md`，以及用户级
+  `~/.dsh/AGENTS.md`；
+- Qoder 使用 `.qoder/rules/`，同时也读取 `AGENTS.md`；
+- Trae 使用 `.trae/rules/`，可导入 `AGENTS.md` 和 `CLAUDE.md`；
+- WorkBuddy 加载 `CODEBUDDY.md` 和 `AGENTS.md`。
 
 如果每个适配器都保存一份完整规则副本，各工具最终会遵循不同版本。因此适配器只应
 包含指向规则正本的简短指针。

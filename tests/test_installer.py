@@ -53,14 +53,61 @@ class BootstrapTests(unittest.TestCase):
             expected = (
                 "AGENTS.md",
                 "CLAUDE.md",
+                "CODEBUDDY.md",
                 "GEMINI.md",
                 "MEMORY/README.md",
                 "MEMORY/01-rules/workspace-protocol.md",
                 ".cursor/rules/000-agent-workspace.mdc",
                 ".github/copilot-instructions.md",
+                ".qoder/rules/000-agent-workspace.md",
+                ".trae/rules/000-agent-workspace.md",
             )
             for relative in expected:
                 self.assertTrue((workspace / relative).is_file(), relative)
+
+    def test_dsh_creates_the_shared_agents_file_once(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            workspace = Path(temp) / "sample"
+            result = run_script(
+                BOOTSTRAP,
+                "--workspace",
+                str(workspace),
+                "--agents",
+                "codex,dsh",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue((workspace / "AGENTS.md").is_file())
+            self.assertEqual(
+                result.stdout.count("AGENTS.md"),
+                1,
+                result.stdout,
+            )
+            self.assertFalse((workspace / "CLAUDE.md").exists())
+
+    def test_native_rule_adapters_are_created(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            workspace = Path(temp) / "sample"
+            result = run_script(
+                BOOTSTRAP,
+                "--workspace",
+                str(workspace),
+                "--agents",
+                "qoder,trae,workbuddy",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            qoder = (
+                workspace / ".qoder" / "rules" / "000-agent-workspace.md"
+            ).read_text(encoding="utf-8")
+            trae = (
+                workspace / ".trae" / "rules" / "000-agent-workspace.md"
+            ).read_text(encoding="utf-8")
+            workbuddy = (workspace / "CODEBUDDY.md").read_text(encoding="utf-8")
+            self.assertIn("trigger: always_on", qoder)
+            self.assertIn("MEMORY/01-rules/workspace-protocol.md", qoder)
+            self.assertIn("alwaysApply: true", trae)
+            self.assertIn("MEMORY/01-rules/workspace-protocol.md", trae)
+            self.assertIn("MEMORY/01-rules/workspace-protocol.md", workbuddy)
+            self.assertFalse((workspace / "AGENTS.md").exists())
 
     def test_existing_files_are_skipped_by_default(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

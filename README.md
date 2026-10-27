@@ -79,7 +79,8 @@ Adjust the parts that matter for your case:
 
 - `<ABSOLUTE_WORKSPACE_PATH>`: the project that should receive `AGENTS.md`, adapters, and `MEMORY/`;
 - runtime: Codex, Claude Code, or a custom skill root (`--runtime`, `--skill-root`);
-- adapters: `--agents codex,claude,cursor,gemini,copilot` or `--agents all`;
+- adapters: `--agents codex,claude,cursor,gemini,copilot,dsh,qoder,trae,workbuddy`
+  or `--agents all`;
 - language: `--language en` or `--language zh-CN`;
 - existing project files: no extra flag is needed; local `AGENTS.md` or
   `README.md` files stay untouched and only missing files are added. Add
@@ -154,7 +155,7 @@ Useful options:
 --runtime codex|claude    Select a known skill root
 --skill-root PATH         Use an explicit skill root
 --workspace PATH          Workspace to initialize (required)
---agents LIST             codex,claude,cursor,gemini,copilot,all
+--agents LIST             codex,claude,cursor,gemini,copilot,dsh,qoder,trae,workbuddy,all
 --language en|zh-CN       Select English or Simplified Chinese templates
 --dry-run                 Print actions without writing
 --force                   Overwrite existing workspace files
@@ -189,10 +190,13 @@ The bootstrap templates use an opinionated default:
 workspace/
   AGENTS.md
   CLAUDE.md
+  CODEBUDDY.md
   GEMINI.md
   README.md
   .cursor/rules/000-agent-workspace.mdc
   .github/copilot-instructions.md
+  .qoder/rules/000-agent-workspace.md
+  .trae/rules/000-agent-workspace.md
   MEMORY/
     01-rules/
     02-structure/
@@ -263,9 +267,14 @@ classify durable content before writing. See
 | Cursor | `.cursor/rules/000-agent-workspace.mdc` | `cursor` |
 | Gemini CLI | `GEMINI.md` | `gemini` |
 | GitHub Copilot | `.github/copilot-instructions.md` | `copilot` |
+| DeepSeek Harness (`dsh`) | `AGENTS.md` (shared with `codex`) | `dsh` |
+| Qoder | `.qoder/rules/000-agent-workspace.md` | `qoder` |
+| Trae | `.trae/rules/000-agent-workspace.md` | `trae` |
+| WorkBuddy | `CODEBUDDY.md` | `workbuddy` |
 
 All adapters are pointers. They must not duplicate the canonical protocol.
-See [docs/adapter-matrix.md](docs/adapter-matrix.md).
+See [docs/adapter-matrix.md](docs/adapter-matrix.md) for discovery details and
+overlapping entry files.
 
 ## Safety
 

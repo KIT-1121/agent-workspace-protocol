@@ -10,7 +10,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from bootstrap_workspace import bootstrap, parse_agents
+from bootstrap_workspace import SUPPORTED_AGENTS, bootstrap, parse_agents
 
 
 SKILL_NAME = "agent-workspace-protocol"
@@ -151,7 +151,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--agents",
         default="all",
-        help="Workspace adapters: codex,claude,cursor,gemini,copilot,all,none.",
+        help=(
+            "Workspace adapters: "
+            f"{','.join(SUPPORTED_AGENTS)},all,none."
+        ),
     )
     parser.add_argument(
         "--language",

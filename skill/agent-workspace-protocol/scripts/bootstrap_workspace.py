@@ -11,7 +11,17 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
-SUPPORTED_AGENTS = ("codex", "claude", "cursor", "gemini", "copilot")
+SUPPORTED_AGENTS = (
+    "codex",
+    "claude",
+    "cursor",
+    "gemini",
+    "copilot",
+    "dsh",
+    "qoder",
+    "trae",
+    "workbuddy",
+)
 SUPPORTED_LANGUAGES = ("en", "zh-CN")
 LANGUAGE_LAYOUTS = {
     "en": {
@@ -29,6 +39,14 @@ AGENT_TEMPLATES = {
     "cursor": (".cursor/rules/000-agent-workspace.mdc",),
     "gemini": ("GEMINI.md",),
     "copilot": (".github/copilot-instructions.md",),
+    # DeepSeek Harness reads AGENTS.md (and CLAUDE.md) from each project
+    # directory, so it reuses the AGENTS.md template instead of adding a
+    # second entry file. Plans deduplicate shared templates.
+    "dsh": ("AGENTS.md",),
+    "qoder": (".qoder/rules/000-agent-workspace.md",),
+    "trae": (".trae/rules/000-agent-workspace.md",),
+    # WorkBuddy loads the CodeBuddy project instruction file.
+    "workbuddy": ("CODEBUDDY.md",),
 }
 BASE_TEMPLATES = (
     "README.md",
@@ -129,18 +147,20 @@ def build_plan(
     asset_root = skill_root / "assets" / language_layout["assets"]
     canonical = skill_root / "references" / language_layout["canonical"]
 
-    mappings: list[tuple[Path, str]] = [
-        (asset_root / relative, relative) for relative in BASE_TEMPLATES
-    ]
+    # Keyed by target path so agents that share an entry file (Codex and
+    # DeepSeek Harness both use AGENTS.md) produce one planned file.
+    mappings: dict[str, Path] = {
+        relative: asset_root / relative for relative in BASE_TEMPLATES
+    }
     for agent in agents:
         for relative in AGENT_TEMPLATES[agent]:
-            mappings.append((asset_root / relative, relative))
-    mappings.append((canonical, CANONICAL_TARGET))
+            mappings.setdefault(relative, asset_root / relative)
+    mappings[CANONICAL_TARGET] = canonical
 
     stamp = dt.datetime.now().strftime("%Y%m%d-%H%M%S")
     plan: list[PlannedFile] = []
 
-    for source, relative in mappings:
+    for relative, source in mappings.items():
         if not source.is_file():
             raise FileNotFoundError(f"template not found: {source}")
         target = (workspace / relative).resolve()
@@ -248,7 +268,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--agents",
         default="all",
-        help="Comma-separated: codex,claude,cursor,gemini,copilot,all,none.",
+        help=(
+            "Comma-separated: "
+            f"{','.join(SUPPORTED_AGENTS)},all,none."
+        ),
     )
     parser.add_argument(
         "--language",

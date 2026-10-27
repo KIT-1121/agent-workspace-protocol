@@ -41,7 +41,8 @@ say:
 Workspace scope installs the actual project-facing convention:
 
 - `AGENTS.md`;
-- `CLAUDE.md`, `GEMINI.md`, Cursor, and Copilot adapters;
+- `CLAUDE.md`, `GEMINI.md`, `CODEBUDDY.md`, Cursor, Qoder, Trae, and Copilot
+  adapters;
 - `MEMORY/` structure;
 - the project's canonical
   `MEMORY/01-rules/workspace-protocol.md`;
@@ -116,6 +117,6 @@ human still has to point it at the canonical protocol.
 must point to the shared canonical protocol. It is not the cross-agent rule
 book, and it is not the global skill.
 
-The same pattern applies to `GEMINI.md`, Cursor rules, and Copilot
-instructions. Runtime-specific entry files are maps; the durable rules remain
-in the workspace's canonical protocol.
+The same pattern applies to `GEMINI.md`, `CODEBUDDY.md`, Cursor rules, Qoder
+rules, Trae rules, and Copilot instructions. Runtime-specific entry files are
+maps; the durable rules remain in the workspace's canonical protocol.

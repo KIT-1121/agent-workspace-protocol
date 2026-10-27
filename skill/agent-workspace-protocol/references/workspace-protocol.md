@@ -13,8 +13,9 @@ version: 1.0
 # Agent Workspace Protocol
 
 This is the canonical workspace protocol. Agent-specific files such as
-`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, Cursor rules, and Copilot instructions
-are adapters that point here. They must not maintain competing copies.
+`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `CODEBUDDY.md`, Cursor, Qoder, and Trae
+rules, and Copilot instructions are adapters that point here. They must not
+maintain competing copies.
 
 ## 0. Purpose
 

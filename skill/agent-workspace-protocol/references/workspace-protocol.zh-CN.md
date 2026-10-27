@@ -13,8 +13,8 @@ version: 1.0
 # 智能体工作区协议
 
 本文件是工作区的规则正本。`AGENTS.md`、`CLAUDE.md`、`GEMINI.md`、
-Cursor 规则和 Copilot 说明都只是指向本文件的适配入口，不能维护互相竞争的
-完整副本。
+`CODEBUDDY.md`、Cursor、Qoder、Trae 规则和 Copilot 说明都只是指向本文件的
+适配入口，不能维护互相竞争的完整副本。
 
 ## 0. 目的
 

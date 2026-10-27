@@ -32,7 +32,8 @@ Agent 层文件属于设备或用户配置，不是项目记忆，也不应提�
 工作区层安装实际面向项目的约定：
 
 - `AGENTS.md`；
-- `CLAUDE.md`、`GEMINI.md`、Cursor 和 Copilot 适配器；
+- `CLAUDE.md`、`GEMINI.md`、`CODEBUDDY.md`、Cursor、Qoder、Trae 和 Copilot
+  适配器；
 - `MEMORY/` 结构；
 - 项目规则正本 `MEMORY/01-rules/workspace-protocol.md`；
 - 项目地图和索引。
@@ -97,5 +98,5 @@ python skill/agent-workspace-protocol/scripts/install.py \
 `CLAUDE.md` 是 Claude Code 入口适配器，属于工作区层，并且必须指向共享规则正本。
 它不是跨智能体规则手册，也不是全局 skill。
 
-`GEMINI.md`、Cursor 规则和 Copilot 说明遵循同一模式。运行时特定入口文件都是地图，
-长期规则保留在工作区规则正本中。
+`GEMINI.md`、`CODEBUDDY.md`、Cursor 规则、Qoder 规则、Trae 规则和 Copilot 说明
+遵循同一模式。运行时特定入口文件都是地图，长期规则保留在工作区规则正本中。
